@@ -6,7 +6,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-
-mongoose.connect(process.env.DB_CONNECTION, {}).then(() => {
-  app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+app.get("/", (req, res) => {
+  res.json({ message: "running successful" });
 });
+
+mongoose
+  .connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+  })
+  .catch((err) => console.log(err));
