@@ -15,7 +15,9 @@ router.put(
       .custom((v) => {
         return User.findOne({ phone_no: v }).then((user) => {
           if (user) {
-            Promise.reject("User with this phone number already existed!");
+            return Promise.reject(
+              "User with this phone number already existed!"
+            );
           }
         });
       }),
