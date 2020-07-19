@@ -50,7 +50,7 @@ exports.login = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
+    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.SECRET, {
       expiresIn: "1d"
     });
     res.json({ message: "logged in successful", token });
