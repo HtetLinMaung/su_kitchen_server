@@ -4,14 +4,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = new Error("Validation failed!");
-    error.data = errors.array();
-    error.statusCode = 422;
-    next(error);
-  }
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error("Validation failed!");
+      error.data = errors.array();
+      error.statusCode = 422;
+      throw error;
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
     const user = new User({
       name: req.body.name,
@@ -30,14 +30,14 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = new Error("Validation failed!");
-    error.data = errors.array();
-    error.statusCode = 422;
-    next(error);
-  }
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error("Validation failed!");
+      error.data = errors.array();
+      error.statusCode = 422;
+      throw error;
+    }
     const user = await User.findOne({ phone_no: req.body.phone_no });
     if (!user) {
       const error = new Error("User with this phone number not existed!");
@@ -50,9 +50,13 @@ exports.login = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
-    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.SECRET, {
-      expiresIn: "1d"
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.SECRET,
+      {
+        expiresIn: "1d"
+      }
+    );
     res.json({ message: "logged in successful", token });
   } catch (err) {
     if (!err.statusCode) {
