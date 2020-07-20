@@ -13,6 +13,8 @@ app.get("/", (req, res) => {
   res.json({ message: "running successful" });
 });
 app.use("/api/auth/", require("./routes/AuthRoutes"));
+app.use("/api/categories/", require("./routes/CategoryRoute"));
+app.use("/api/menus/", require("./routes/MenuRoute"));
 app.use(error);
 
 mongoose
