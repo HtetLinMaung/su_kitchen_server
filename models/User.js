@@ -16,9 +16,29 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    menus: [{ menuId: { type: Schema.Types.ObjectId, ref: "menus" } }],
+    menus: [
+      {
+        menuId: {
+          type: Schema.Types.ObjectId,
+          ref: "menus"
+        }
+      }
+    ],
     categories: [
-      { categoryId: { type: Schema.Types.ObjectId, ref: "category" } }
+      {
+        categoryId: {
+          type: Schema.Types.ObjectId,
+          ref: "category"
+        }
+      }
+    ],
+    orders: [
+      {
+        orderId: {
+          type: Schema.Types.ObjectId,
+          ref: "orders"
+        }
+      }
     ],
     role: { type: String, required: true }
   },

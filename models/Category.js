@@ -7,6 +7,16 @@ const categorySchema = new Schema(
       type: String,
       required: true
     },
+    category_image: {
+      type: String,
+      required: true
+    },
+    tags: [String],
+    available_time: {
+      type: String,
+      required: true
+    },
+    sub_categories: [String],
     menus: [
       {
         menuId: {
