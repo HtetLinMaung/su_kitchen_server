@@ -46,14 +46,23 @@ exports.createCategory = async (req, res, next) => {
       error.statusCode = 422;
       throw error;
     }
-
     if (req.user_role === "customer") {
       const error = new Error("Not Authorized");
       error.statusCode = 401;
       throw error;
     }
+    if (!req.file) {
+      const error = new Error("Validation failed!");
+      error.statusCode = 422;
+      throw error;
+    }
+
+    const category_image = req.file.location;
     const category = new Category({
       category_name: req.body.category_name,
+      category_image,
+      tags: req.body.tags,
+      available_time: req.body.available_time,
       userId: req.userId
     });
     const result = await category.save();

@@ -16,7 +16,10 @@ const categorySchema = new Schema(
       type: String,
       required: true
     },
-    sub_categories: [String],
+    sub_categories: {
+      type: [String],
+      default: []
+    },
     menus: [
       {
         menuId: {
