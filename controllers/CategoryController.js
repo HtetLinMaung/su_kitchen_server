@@ -1,11 +1,12 @@
 const { validationResult } = require("express-validator");
 const Category = require("../models/Category");
 const User = require("../models/User");
+const s3 = require("../storage");
 
 exports.findCategories = async (req, res, next) => {
   try {
     const totalItems = await Category.find().isDeleted(false).countDocuments();
-    const perPage = req.query.perPage || 10;
+    const perPage = req.query.perPage || totalItems;
     const page = req.query.page || 1;
     const categories = await Category.find()
       .isDeleted(false)
@@ -63,6 +64,7 @@ exports.createCategory = async (req, res, next) => {
       category_image,
       tags: req.body.tags,
       available_time: req.body.available_time,
+      sub_categories: req.body.sub_categories,
       userId: req.userId
     });
     const result = await category.save();
@@ -92,6 +94,15 @@ exports.updateCategory = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
+    let category_image = req.body.image;
+    if (req.file) {
+      category_image = req.file.location;
+    }
+    if (!category_image) {
+      const error = new Error("No image selected!");
+      error.statusCode = 422;
+      throw error;
+    }
     const category = await Category.findById(req.params.id);
     if (!category) {
       const error = new Error("Category not found!");
@@ -103,7 +114,19 @@ exports.updateCategory = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
+    if (category_image != category.category_image) {
+      clearImage(category.category_image, (err, data) => {
+        console.log(data);
+        if (err) {
+          next(err);
+        }
+      });
+    }
     category.category_name = req.body.category_name;
+    category.category_image = category_image;
+    category.tags = req.body.tags;
+    category.available_time = req.body.available_time;
+    category.sub_categories = req.body.sub_categories;
     const result = await category.save();
     res.json({ message: "Updated successfully", data: result });
   } catch (err) {
@@ -153,4 +176,16 @@ exports.removeCategory = async (req, res, next) => {
     }
     next(err);
   }
+};
+
+const clearImage = (path, cb) => {
+  const pathArray = path.split("/");
+  const Key = pathArray[pathArray.length - 1];
+  s3.deleteObject(
+    {
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key
+    },
+    cb
+  );
 };
