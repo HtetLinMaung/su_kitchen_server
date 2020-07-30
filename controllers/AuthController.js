@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
     }
     const user = await User.findOne({ phone_no: req.body.phone_no });
     if (!user) {
-      const error = new Error("User with this phone number not existed!");
+      const error = new Error("User with this phone number does not existed!");
       error.statusCode = 404;
       throw error;
     }
@@ -57,7 +57,7 @@ exports.login = async (req, res, next) => {
         expiresIn: "1d"
       }
     );
-    res.json({ message: "logged in successful", token });
+    res.json({ message: "logged in successful", token, role: user.role });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
