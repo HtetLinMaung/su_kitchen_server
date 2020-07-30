@@ -57,7 +57,11 @@ exports.login = async (req, res, next) => {
         expiresIn: "1d"
       }
     );
-    res.json({ message: "logged in successful", token, role: user.role });
+    res.json({
+      message: "logged in successful",
+      token,
+      data: { role: user.role, name: user.name }
+    });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
