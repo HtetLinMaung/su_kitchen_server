@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.99dcb6ff.chunk.css",
+    "main.js": "/static/js/main.d6b615c1.chunk.js",
+    "main.js.map": "/static/js/main.d6b615c1.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cfa3fabc.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cfa3fabc.js.map",
+    "static/js/2.2c3c0f6b.chunk.js": "/static/js/2.2c3c0f6b.chunk.js",
+    "static/js/2.2c3c0f6b.chunk.js.map": "/static/js/2.2c3c0f6b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.19d867f7e3b6c1743f2152b192c92d81.js": "/precache-manifest.19d867f7e3b6c1743f2152b192c92d81.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.99dcb6ff.chunk.css.map": "/static/css/main.99dcb6ff.chunk.css.map",
+    "static/js/2.2c3c0f6b.chunk.js.LICENSE.txt": "/static/js/2.2c3c0f6b.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/Poppins-Regular.41e8dead.ttf",
+    "static/media/ma-la-xiang-guo-10.jpg": "/static/media/ma-la-xiang-guo-10.beb1a9f7.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cfa3fabc.js",
+    "static/js/2.2c3c0f6b.chunk.js",
+    "static/css/main.99dcb6ff.chunk.css",
+    "static/js/main.d6b615c1.chunk.js"
+  ]
+}

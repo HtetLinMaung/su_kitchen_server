@@ -6,6 +6,7 @@ const error = require("./middlewares/error");
 const s3 = require("./storage");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,8 +28,9 @@ const upload = multer({
 app.use(cors());
 app.use(express.json());
 app.use(upload.single("image"));
+app.use(express.static(path.join(__dirname, "build")));
 app.get("/", (req, res) => {
-  res.json({ message: "running successful" });
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 app.use("/api/auth/", require("./routes/AuthRoutes"));
 app.use("/api/categories/", require("./routes/CategoryRoute"));
