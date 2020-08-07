@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,WACE,qBAAsB,CACtB,uFAEF,CAEA,EACE,qBACF,CACA,KACE,QACF","file":"main.99dcb6ff.chunk.css","sourcesContent":["@font-face {\n  font-family: \"Poppins\";\n  src: local(\"Poppins\"),\n    url(./assets/fonts/Poppins-Regular.ttf) format(\"truetype\");\n}\n\n* {\n  font-family: \"Poppins\";\n}\nbody {\n  margin: 0;\n}\n"]}
